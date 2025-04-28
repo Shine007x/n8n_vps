@@ -20,7 +20,7 @@ echo "✅ n8n data volumes are ready!"
 
 # Docker Compose and Dockerfile Setup
 echo "🐳 Setting up Docker Compose and Dockerfile..."
-wget https://raw.githubusercontent.com/God109/n8n_vps/main/docker-compose.yml -O docker-compose.yml
+wget https://raw.githubusercontent.com/God109/n8n_vps/refs/heads/main/compose.yaml -O compose.yaml
 wget https://raw.githubusercontent.com/God109/n8n_vps/main/Dockerfile -O Dockerfile
 
 # Set EXTERNAL_IP environment variable
