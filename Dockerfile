@@ -1,35 +1,21 @@
-FROM node:18-buster-slim
+# Start from the official n8n image
+FROM n8nio/n8n:latest
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV PIP_NO_CACHE_DIR=1
-
+# Install ffmpeg, Python3, pip, and other needed utilities
 USER root
 
-# Install system dependencies including ffmpeg and build tools
-RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y \
     ffmpeg \
     python3 \
     python3-pip \
-    build-essential \
-    libffi-dev \
-    libssl-dev \
-    curl \
-    libxml2-dev \
-    libxslt-dev \
-    zlib1g-dev && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Upgrade pip, setuptools, wheel
-RUN python3 -m pip install --upgrade pip setuptools wheel
+# Install yt-dlp and telethon using pip
+RUN pip3 install --no-cache-dir yt-dlp telethon
 
-# Install yt-dlp and telethon via pip
-RUN python3 -m pip install yt-dlp telethon
-
-# Install n8n globally (optional, remove if not needed)
-RUN npm install -g n8n
-
+# Return to default n8n user
 USER node
 
+# Expose port (optional, default is 5678)
 EXPOSE 5678
-
-# No default command or entrypoint; run what you need at runtime
