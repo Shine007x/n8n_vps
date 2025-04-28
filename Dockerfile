@@ -2,18 +2,24 @@ FROM n8nio/n8n
 
 USER root
 
-# Update the package manager and install required dependencies
+# 1) Update apk and install runtime + build deps
+# 2) Install ffmpeg
+# 3) Install Python3/pip
+# 4) Install Rust toolchain & OpenSSL headers so cryptography can build
+# 5) pip-install yt-dlp & telethon
+# 6) Clean apk cache
 RUN apk update && \
     apk add --no-cache \
-        python3 \
-        py3-pip \
-        gcc \
-        python3-dev \
-        musl-dev \
-        curl \
-        ffmpeg && \
+      ffmpeg \
+      python3 \
+      py3-pip \
+      build-base \
+      libffi-dev \
+      openssl-dev \
+      rust \
+      cargo && \
+    pip3 install --upgrade pip wheel && \
     pip3 install yt-dlp telethon && \
-    apk add --no-cache yt-dlp && \
-    rm -rf /var/cache/apk/*  # Clean APK cache
+    rm -rf /var/cache/apk/*
 
 USER node
