@@ -1,6 +1,6 @@
 services:
   svr_n8n:
-    image: n8nio/n8n
+    build: .
     container_name: n8n_container
     environment:
       - N8N_SECURE_COOKIE=false
@@ -13,3 +13,4 @@ services:
     volumes:
       - /root/n8n_data:/home/node/.n8n
       - /root/n8n_temp:/data/temp
+    restart: unless-stopped
