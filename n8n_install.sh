@@ -7,37 +7,25 @@ sudo apt install -y apt-transport-https ca-certificates curl software-properties
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 apt-cache policy docker-ce
-sudo apt install -y docker-ce
+sudo apt install -y docker-ce docker-compose
 echo "✅ Docker installation completed!"
 
-# Creating n8n Data Volume
-echo "📂 Creating n8n data volume and temp directory..."
+# Creating n8n Data Volumes
+echo "📂 Creating n8n data volumes..."
 cd ~
 mkdir -p n8n_data n8n_temp
 sudo chown -R 1000:1000 n8n_data n8n_temp
 sudo chmod -R 755 n8n_data n8n_temp
-echo "✅ n8n data volume and temp directory are ready!"
+echo "✅ n8n data volumes are ready!"
 
 # Docker Compose and Dockerfile Setup
-echo "🛠️ Setting up Docker Compose and Dockerfile..."
+echo "🐳 Setting up Docker Compose and Dockerfile..."
+wget https://raw.githubusercontent.com/God109/n8n_vps/main/docker-compose.yml -O docker-compose.yml
+wget https://raw.githubusercontent.com/God109/n8n_vps/main/Dockerfile -O Dockerfile
 
-# Download compose.yaml
-wget https://raw.githubusercontent.com/God109/n8n_vps/refs/heads/main/compose.yaml -O compose.yaml
+# Set EXTERNAL_IP environment variable
+export EXTERNAL_IP=http://"$(hostname -I | awk '{print $1}')"
 
-# Create Dockerfile
-cat <<EOF > Dockerfile
-FROM n8nio/n8n
-
-USER root
-
-RUN apt-get update && apt-get install -y ffmpeg python3-pip \\
-    && pip3 install yt-dlp telethon \\
-    && apt-get clean
-
-USER node
-EOF
-
-# Run Docker Compose
-export EXTERNAL_IP=http://"$(hostname -I | cut -f1 -d' ')"
-sudo -E docker compose up -d --build
-echo "🎉 Installation complete! Access your service at: \$EXTERNAL_IP"
+# Start Docker Compose
+sudo -E docker-compose up -d --build
+echo "🎉 Installation complete! Access your service at: $EXTERNAL_IP"
