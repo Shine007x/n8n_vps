@@ -19,8 +19,8 @@ sudo chmod -R 755 n8n_data n8n_temp
 
 # 3) Fetch compose + Dockerfile
 echo "📥 Fetching compose & Dockerfile..."
-wget https://raw.githubusercontent.com/God109/n8n_vps/main/docker-compose.yml -O docker-compose.yml
-wget https://raw.githubusercontent.com/God109/n8n_vps/main/Dockerfile -O Dockerfile
+wget https://raw.githubusercontent.com/God109/n8n_vps/refs/heads/main/compose.yaml -O compose.yaml
+wget https://raw.githubusercontent.com/God109/n8n_vps/refs/heads/main/Dockerfile -O Dockerfile
 
 # 4) Launch
 export EXTERNAL_IP="http://$(hostname -I | awk '{print $1}')"
