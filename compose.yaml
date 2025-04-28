@@ -1,7 +1,9 @@
+version: '3.8'
 services:
   svr_n8n:
     build: .
     container_name: n8n_container
+    restart: unless-stopped
     environment:
       - N8N_SECURE_COOKIE=false
       - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
@@ -13,4 +15,3 @@ services:
     volumes:
       - /root/n8n_data:/home/node/.n8n
       - /root/n8n_temp:/data/temp
-    restart: unless-stopped
