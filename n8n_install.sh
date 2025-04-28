@@ -14,9 +14,10 @@ echo "✅ Docker installation completed!"
 echo "📂 Creating n8n data volume..."
 cd ~
 mkdir n8n_data
-sudo chown -R 1000:1000 n8n_data
-sudo chmod -R 755 n8n_data
-echo "✅ n8n data volume is ready!"
+mkdir n8n_temp  # Create n8n_temp for temporary file storage
+sudo chown -R 1000:1000 n8n_data n8n_temp
+sudo chmod -R 755 n8n_data n8n_temp
+echo "✅ n8n data volume and n8n_temp directory are ready!"
 
 # Docker Compose Setup
 echo "🐳 Setting up Docker Compose..."
