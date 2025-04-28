@@ -1,25 +1,31 @@
-FROM n8nio/n8n
+# Use Node-18 on Debian-slim instead of Alpine
+FROM node:18-buster-slim
 
+# Install n8n globally
+RUN npm install -g n8n
+
+# Switch to root to install system packages
 USER root
 
-# 1) Update apk and install runtime + build deps
-# 2) Install ffmpeg
-# 3) Install Python3/pip
-# 4) Install Rust toolchain & OpenSSL headers so cryptography can build
-# 5) pip-install yt-dlp & telethon
-# 6) Clean apk cache
-RUN apk update && \
-    apk add --no-cache \
+# Install ffmpeg, Python3, pip, yt-dlp & Telethon dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
       ffmpeg \
       python3 \
-      py3-pip \
-      build-base \
+      python3-pip \
+      build-essential \
       libffi-dev \
-      openssl-dev \
-      rust \
-      cargo && \
-    pip3 install --upgrade pip wheel && \
+      libssl-dev \
+      curl && \
     pip3 install yt-dlp telethon && \
-    rm -rf /var/cache/apk/*
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
+# Switch to non-root user
 USER node
+
+# Expose n8n port
+EXPOSE 5678
+
+# Default command
+ENTRYPOINT ["n8n"]
