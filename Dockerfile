@@ -1,8 +1,8 @@
 # Use Node-18 on Debian-slim instead of Alpine
 FROM node:18-buster-slim
 
-# Install n8n globally
-RUN npm install -g n8n
+# Set environment variables
+ENV NODE_ENV=production
 
 # Switch to root to install system packages
 USER root
@@ -21,6 +21,16 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Install n8n globally
+RUN npm install -g n8n
+
+# Create and set working directory
+WORKDIR /home/node
+
+# Make sure the user owns their home directory
+RUN mkdir -p /home/node/.n8n && \
+    chown -R node:node /home/node/
+
 # Switch to non-root user
 USER node
 
@@ -29,3 +39,4 @@ EXPOSE 5678
 
 # Default command
 ENTRYPOINT ["n8n"]
+CMD ["start"]
