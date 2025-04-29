@@ -11,3 +11,5 @@ docker exec -it -u root "$CONTAINER_NAME" apk add yt-dlp
 
 # Install Telethon using pip
 docker exec -it -u root "$CONTAINER_NAME" pip install telethon
+
+echo "🎉 Tools installation completed!"
