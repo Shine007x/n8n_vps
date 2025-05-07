@@ -4,7 +4,7 @@ set -e
 # Variables
 CONTAINER_NAME="n8n_container"
 
-# Install system packages
+# Install ffmpeg
 docker exec -i -u root "$CONTAINER_NAME" apk add --update python3 py3-pip gcc python3-dev musl-dev curl ffmpeg
 
 # Install yt-dlp
