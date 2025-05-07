@@ -1,1 +1,1 @@
-docker pull n8n.io/n8n && docker compose down && docker compose up -d
+docker pull docker.n8n.io/n8nio/n8n && docker compose down && docker compose up -d
