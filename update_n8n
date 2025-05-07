@@ -1,0 +1,1 @@
+docker pull n8n.io/n8n && docker compose down && docker compose up -d
