@@ -17,16 +17,16 @@ cloudflared tunnel --url http://localhost:80 > /tmp/cloudflared.log 2>&1 &
 
 # Wait for tunnel to be ready
 echo "🔴 Waiting for Cloudflare to initialize..."
-sleep 8
+sleep 15  # Increased sleep time to ensure tunnel starts
 
-# Extract Cloudflare public URL
-export EXTERNAL_IP=$(grep -o 'https://.*\.trycloudflare.com' /tmp/cloudflared.log | head -n 1)
+# Fetch public URL from Cloudflare Tunnel API
+export EXTERNAL_IP=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
 
 if [ -n "$EXTERNAL_IP" ]; then
   echo "✅ Cloudflare public URL: $EXTERNAL_IP"
   echo "export EXTERNAL_IP=$EXTERNAL_IP" >> ~/.bashrc
 else
-  echo "❌ Could not retrieve Cloudflare public URL. Check /tmp/cloudflared.log"
+  echo "❌ Could not retrieve Cloudflare public URL."
   exit 1
 fi
 
