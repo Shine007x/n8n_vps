@@ -15,28 +15,25 @@ sudo mv cloudflared /usr/local/bin/
 echo "🌐 Starting Cloudflare Tunnel to fetch URL..."
 cloudflared tunnel --url http://localhost:80 > /tmp/cloudflared.log 2>&1 &
 
-# Wait for tunnel to be ready
+# Wait for tunnel to be ready (increased wait time to 15 seconds)
 echo "🔴 Waiting for Cloudflare to initialize..."
-sleep 15  # Increased sleep time to ensure tunnel starts
+sleep 15
 
-# Fetch public URL from Cloudflare Tunnel API
-tunnel_info=$(curl -s http://localhost:4040/api/tunnels)
-echo "🔴 Tunnel Info: $tunnel_info"  # Debug output
-
-export EXTERNAL_IP=$(echo "$tunnel_info" | jq -r '.tunnels[0].public_url')
+# Extract Cloudflare public URL
+export EXTERNAL_IP=$(grep -o 'https://.*\.trycloudflare.com' /tmp/cloudflared.log | head -n 1)
 
 if [ -n "$EXTERNAL_IP" ]; then
   echo "✅ Cloudflare public URL: $EXTERNAL_IP"
   echo "export EXTERNAL_IP=$EXTERNAL_IP" >> ~/.bashrc
 else
-  echo "❌ Could not retrieve Cloudflare public URL."
+  echo "❌ Could not retrieve Cloudflare public URL. Check /tmp/cloudflared.log"
   exit 1
 fi
 
 # Kill temporary tunnel (we'll run it as systemd instead)
 pkill cloudflared
 
-# Create systemd service to auto-start tunnel
+# Create systemd service to auto-start tunnel with a watchdog mechanism
 echo "🛠️ Setting up systemd service for cloudflared..."
 sudo tee /etc/systemd/system/cloudflared-n8n.service > /dev/null <<EOF
 [Unit]
@@ -47,6 +44,7 @@ Requires=docker.service
 [Service]
 ExecStart=/usr/local/bin/cloudflared tunnel --url http://localhost:80
 Restart=always
+RestartSec=10  # Restarts the service every 10 seconds if it fails
 User=root
 
 [Install]
