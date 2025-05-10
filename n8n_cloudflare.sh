@@ -20,7 +20,10 @@ echo "🔴 Waiting for Cloudflare to initialize..."
 sleep 15  # Increased sleep time to ensure tunnel starts
 
 # Fetch public URL from Cloudflare Tunnel API
-export EXTERNAL_IP=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+tunnel_info=$(curl -s http://localhost:4040/api/tunnels)
+echo "🔴 Tunnel Info: $tunnel_info"  # Debug output
+
+export EXTERNAL_IP=$(echo "$tunnel_info" | jq -r '.tunnels[0].public_url')
 
 if [ -n "$EXTERNAL_IP" ]; then
   echo "✅ Cloudflare public URL: $EXTERNAL_IP"
