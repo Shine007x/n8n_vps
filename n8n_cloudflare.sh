@@ -8,6 +8,9 @@ echo "🔴 Docker Compose stopped."
 # Cloudflare Installation (Exact Commands)
 echo "🟢 Setting up Cloudflare Tunnel..."
 
+# Remove existing service
+sudo cloudflared service uninstall
+
 # Add cloudflare gpg key
 sudo mkdir -p --mode=0755 /usr/share/keyrings
 curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
