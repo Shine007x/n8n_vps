@@ -5,7 +5,7 @@ echo "🟢 Stopping Docker Compose..."
 sudo -E docker compose down
 echo "🔴 Docker Compose stopped."
 
-# Cloudflare Installation (Exact Commands)
+# Cloudflare Installation
 echo "🟢 Setting up Cloudflare Tunnel..."
 
 # Remove existing service
