@@ -1,15 +1,15 @@
 docker pull n8nio/n8n && docker compose down
-echo "🎉 Update complete!"
 
-read -p "Enter Cloudflare Tunnel Domain (without https://): " domain
+read -p "Enter Your Domain (without https://): " domain
 export EXTERNAL_IP="https://$domain"
 
 # Set Domain as External IP
 export EXTERNAL_IP="https://$domain"
-echo "✅ Cloudflare URL obtained: $EXTERNAL_IP"
+echo "✅ URL connected: $EXTERNAL_IP"
 
 # Start Docker Compose
 echo "🟢 Starting Docker Compose..."
-sudo -E docker compose up -d
+docker compose up -d
+sleep 5
 
-echo "🔴 All done! Please wait a few minutes and then visit $EXTERNAL_IP to access the n8n UI."
+echo "🎉 Update complete!"
