@@ -1,15 +1,15 @@
 #!/bin/bash
 
 echo "🚀 Starting RSSHub Docker installation..."
-# Create data directory like n8n
-cd ~
-mkdir -p rsshub_data
-sudo chown -R 1000:1000 rsshub_data
-sudo chmod -R 755 rsshub_data
-echo "✅ rsshub_data directory is ready!"
 
-# Write the docker-compose YAML without 'version' field
-cd ~/rsshub_data
+cd ~
+mkdir -p rsshub/rsshub_data
+sudo chown -R 1000:1000 rsshub
+sudo chmod -R 755 rsshub
+echo "✅ rsshub directory and its contents are ready!"
+
+cd ~/rsshub/rsshub_data
+
 cat > compose.yml <<EOF
 services:
   svr_rsshub:
@@ -22,7 +22,7 @@ services:
     ports:
       - "3000:1200"
     volumes:
-      - /root/rsshub_data:/data
+      - /root/rsshub/rsshub_data:/data
     depends_on:
       - svr_redis
     restart: unless-stopped
@@ -31,14 +31,13 @@ services:
     image: redis:alpine
     container_name: rsshub_redis
     volumes:
-      - /root/rsshub_data/redis:/data
+      - /root/rsshub/rsshub_data/redis:/data
     restart: unless-stopped
 EOF
 
 echo "📝 Docker Compose file created."
 
-# Start containers
 sudo docker compose up -d
-# 🌐 Display local info only
+
 echo "🎉 RSSHub is now running at: http://localhost:3000"
 echo "🌐 Use Cloudflare Tunnel to map to: https://rsshub.shinelab.online"
