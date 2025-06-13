@@ -13,6 +13,11 @@ echo "✅ Docker installation completed!"
 # Creating n8n Data Volume
 echo "📂 Creating n8n data volume..."
 cd ~
+mkdir n8n
+sudo chown -R 1000:1000 n8n
+sudo chmod -R 755 n8n
+
+cd ~/n8n
 mkdir n8n_data
 mkdir n8n_temp
 sudo chown -R 1000:1000 n8n_data n8n_temp
