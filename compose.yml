@@ -11,6 +11,6 @@ services:
     ports:
       - "80:5678"
     volumes:
-      - /root/n8n_data:/home/node/.n8n
-      - /root/n8n_temp:/data/temp
+      - /root/n8n/n8n_data:/home/node/.n8n
+      - /root/n8n/n8n_temp:/data/temp
     restart: unless-stopped
