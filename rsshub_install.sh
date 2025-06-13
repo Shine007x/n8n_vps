@@ -57,5 +57,6 @@ echo "📝 Docker Compose file created."
 cd ~/rsshub
 sudo docker compose up -d --build
 
-echo "🎉 RSSHub with Chromium is now running at: http://localhost:3000"
+EXTERNAL_IP=http://"$(hostname -I | cut -f1 -d' ')"
+echo "🎉 RSSHub with Chromium is now running at: $EXTERNAL_IP"
 echo "🌐 Use Cloudflare Tunnel to map to your domain (e.g., https://rsshub.shinelab.online)"
