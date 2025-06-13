@@ -9,6 +9,7 @@ sudo chmod -R 755 rsshub_data
 echo "✅ rsshub_data directory is ready!"
 
 # Write the docker-compose YAML without 'version' field
+cd ~/rsshub_data
 cat > compose.yml <<EOF
 services:
   svr_rsshub:
