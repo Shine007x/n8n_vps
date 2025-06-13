@@ -2,23 +2,39 @@
 
 echo "🚀 Starting RSSHub Docker installation..."
 
+# Prepare directories
 cd ~
 mkdir -p rsshub/rsshub_data
 sudo chown -R 1000:1000 rsshub
 sudo chmod -R 755 rsshub
 echo "✅ rsshub directory and its contents are ready!"
 
-cd ~/rsshub/rsshub_data
+# Write Dockerfile to install Chromium
+cat > ~/rsshub/Dockerfile <<'EOF'
+FROM diygod/rsshub:latest
 
-cat > compose.yml <<EOF
+USER root
+
+RUN apt-get update && apt-get install -y chromium
+
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+
+USER node
+EOF
+
+echo "📝 Dockerfile with Chromium installation created."
+
+# Write docker-compose.yml
+cat > ~/rsshub/compose.yml <<EOF
 services:
   svr_rsshub:
-    image: diygod/rsshub:latest
+    build: .
     container_name: rsshub_container
     environment:
       - NODE_ENV=production
       - CACHE_TYPE=redis
       - REDIS_URL=redis://svr_redis:6379/
+      - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
     ports:
       - "3000:1200"
     volumes:
@@ -37,7 +53,9 @@ EOF
 
 echo "📝 Docker Compose file created."
 
-sudo docker compose up -d
+# Start containers with build
+cd ~/rsshub
+sudo docker compose up -d --build
 
-echo "🎉 RSSHub is now running at: http://localhost:3000"
-echo "🌐 Use Cloudflare Tunnel to map to: https://rsshub.shinelab.online"
+echo "🎉 RSSHub with Chromium is now running at: http://localhost:3000"
+echo "🌐 Use Cloudflare Tunnel to map to your domain (e.g., https://rsshub.shinelab.online)"
