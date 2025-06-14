@@ -2,7 +2,7 @@
 
 # Stop Docker Compose
 echo "🟢 Stopping Docker Compose..."
-sudo -E docker compose down
+sudo -E docker compose -f ~/n8n/n8n_data/compose.yml down
 echo "🔴 Docker Compose stopped."
 
 # Cloudflare Installation
@@ -41,6 +41,6 @@ echo "✅ Cloudflare URL obtained: $EXTERNAL_IP"
 
 # Start Docker Compose
 echo "🟢 Starting Docker Compose..."
-sudo -E docker compose up -d
+sudo -E EXTERNAL_IP="$EXTERNAL_IP" docker compose -f ~/n8n/n8n_data/compose.yml up -d
 
 echo "🔴 All done! Please wait a few minutes and then visit $EXTERNAL_IP to access the n8n UI."
