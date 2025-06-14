@@ -14,4 +14,4 @@ docker exec -i -u root "$CONTAINER_NAME" apk add yt-dlp
 docker exec -i -u root "$CONTAINER_NAME" pip install --break-system-packages telethon
 
 # Done
-echo "🎉 Installation completed successfully!"
+echo "🎉 Tools installation completed!"
