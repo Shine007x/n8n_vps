@@ -41,6 +41,6 @@ echo "✅ Cloudflare URL obtained: $EXTERNAL_IP"
 
 # Start Docker Compose
 echo "🟢 Starting Docker Compose..."
-sudo -E EXTERNAL_IP="$EXTERNAL_IP" docker compose -f ~/n8n/compose.yml up -d
+sudo -E docker compose -f ~/n8n/compose.yml up -d
 
 echo "🔴 All done! Please wait a few minutes and then visit $EXTERNAL_IP to access the n8n UI."
