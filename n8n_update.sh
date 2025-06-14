@@ -6,7 +6,7 @@ echo "✅ Updated."
 
 # Stop Docker Compose
 echo "🟢 Stopping Docker Compose..."
-sudo -E docker compose down
+sudo -E docker compose -f ~/n8n/n8n_data/compose.yml down
 echo "🔴 Docker Compose stopped."
 
 read -p "Enter Cloudflare Tunnel Domain (without https://): " domain
@@ -15,9 +15,9 @@ read -p "Enter Cloudflare Tunnel Domain (without https://): " domain
 export EXTERNAL_IP="https://$domain"
 echo "✅ URL connected: $EXTERNAL_IP"
 
-# Start Docker Compose
+# Start Docker Compose with EXTERNAL_IP injected
 echo "🟢 Starting Docker Compose..."
-sudo -E docker compose up -d
+sudo -E EXTERNAL_IP="$EXTERNAL_IP" docker compose -f ~/n8n/n8n_data/compose.yml up -d
 sleep 5
 
 echo "🎉 Update complete!"
