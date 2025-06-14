@@ -6,18 +6,18 @@ echo "✅ Updated."
 
 # Stop Docker Compose
 echo "🟢 Stopping Docker Compose..."
-sudo -E docker compose down
+sudo -E docker compose -f ~/n8n/compose.yml down
 echo "🔴 Docker Compose stopped."
 
-read -p "Enter Your Ngrok Domain (without https://): " domain
+read -p "Enter Ngrok Tunnel Domain (without https://): " domain
 
 # Set Domain as External IP
 export EXTERNAL_IP="https://$domain"
 echo "✅ URL connected: $EXTERNAL_IP"
 
-# Start Docker Compose
+# Start Docker Compose with EXTERNAL_IP injected
 echo "🟢 Starting Docker Compose..."
-sudo -E docker compose up -d
+sudo -E EXTERNAL_IP="$EXTERNAL_IP" docker compose -f ~/n8n/compose.yml up -d
 sleep 5
 
 echo "🎉 Update complete!"
