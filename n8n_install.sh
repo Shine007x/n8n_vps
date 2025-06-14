@@ -23,4 +23,4 @@ wget https://raw.githubusercontent.com/Shine007x/n8n_vps/refs/heads/second/compo
 EXTERNAL_IP=http://"$(hostname -I | cut -f1 -d' ')"
 sudo -E docker compose up -d
 
-echo "🎉 Installation complete! Access your service at: $EXTERNAL_IP:80"
+echo "🎉 Installation complete! Access your service at: $EXTERNAL_IP:5678"
