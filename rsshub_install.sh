@@ -59,4 +59,4 @@ sudo docker compose up -d --build
 
 EXTERNAL_IP=http://"$(hostname -I | cut -f1 -d' ')"
 echo "🎉 RSSHub with Chromium is now running at: $EXTERNAL_IP"
-echo "🌐 Use Cloudflare Tunnel to map to your domain (e.g., https://rsshub.shinelab.online)"
+echo "🌐 Use Cloudflare Tunnel to map to your domain (e.g., https://rsshub.shinewanna.com)"
