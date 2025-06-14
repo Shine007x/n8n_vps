@@ -9,7 +9,7 @@ echo "🟢 Stopping Docker Compose..."
 sudo -E docker compose down
 echo "🔴 Docker Compose stopped."
 
-read -p "Enter Your Domain (without https://): " domain
+read -p "Enter Your Ngrok Domain (without https://): " domain
 export EXTERNAL_IP="https://$domain"
 
 # Set Domain as External IP
