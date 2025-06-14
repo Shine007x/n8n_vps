@@ -44,3 +44,4 @@ echo "🟢 Starting Docker Compose..."
 sudo -E docker compose -f ~/n8n/compose.yml up -d
 
 echo "🔴 All done! Please wait a few minutes and then visit $EXTERNAL_IP to access the n8n UI."
+echo "🌐 Use Cloudflare Tunnel to map to your domain ($EXTERNAL_IP)"
