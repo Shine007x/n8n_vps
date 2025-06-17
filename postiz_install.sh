@@ -5,11 +5,6 @@ echo "📂 Setting up Postiz directories and volumes..."
 mkdir -p ~/postiz
 cd ~/postiz
 
-docker volume create postgres-volume >/dev/null 2>&1
-docker volume create postiz-redis-data >/dev/null 2>&1
-docker volume create postiz-config >/dev/null 2>&1
-docker volume create postiz-uploads >/dev/null 2>&1
-
 echo "✅ Volumes are ready!"
 
 echo "📄 Writing compose.yml..."
