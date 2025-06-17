@@ -97,4 +97,6 @@ echo "✅ docker-compose.yml created!"
 echo "🚀 Starting Postiz services..."
 docker compose up -d
 
-echo "🎉 Postiz should now be running at: https://postiz.shinewanna.com"
+EXTERNAL_IP="http://$(hostname -I | cut -f1 -d' ')"
+echo "🎉 Postiz is now running at: $EXTERNAL_IP:5000"
+echo "🌐 Use Cloudflare Tunnel to map to your domain (e.g., https://postiz.shinewanna.com)"
