@@ -2,6 +2,9 @@
 
 echo "📂 Setting up Postiz directories and volumes..."
 
+mkdir -p ~/postiz
+cd ~/postiz
+
 docker volume create postgres-volume >/dev/null 2>&1
 docker volume create postiz-redis-data >/dev/null 2>&1
 docker volume create postiz-config >/dev/null 2>&1
@@ -9,9 +12,9 @@ docker volume create postiz-uploads >/dev/null 2>&1
 
 echo "✅ Volumes are ready!"
 
-echo "📄 Writing docker-compose.yml..."
+echo "📄 Writing compose.yml..."
 
-cat > docker-compose.yml <<'EOF'
+cat > compose.yml <<'EOF'
 services:
   postiz:
     image: ghcr.io/gitroomhq/postiz-app:latest
@@ -21,10 +24,10 @@ services:
       MAIN_URL: "https://postiz.shinewanna.com"
       FRONTEND_URL: "https://postiz.shinewanna.com"
       NEXT_PUBLIC_BACKEND_URL: "https://postiz.shinewanna.com/api"
-      JWT_SECRET: "random-string-please-change"
+      JWT_SECRET: "hjdfwehfuewhdjk"
       DATABASE_URL: "postgresql://postiz-user:postiz-password@postiz-postgres:5432/postiz-db-local"
       REDIS_URL: "redis://postiz-redis:6379"
-      BACKEND_INTERNAL_URL: "http://postiz:3000"
+      BACKEND_INTERNAL_URL: "http://127.0.0.1:3000"
       IS_GENERAL: "true"
       DISABLE_REGISTRATION: "false"
       STORAGE_PROVIDER: "local"
@@ -90,11 +93,9 @@ networks:
     external: false
 EOF
 
-echo "✅ docker-compose.yml created!"
+echo "✅ compose.yml created inside ~/postiz"
 
 echo "🚀 Starting Postiz services..."
-docker compose up -d
+docker compose -f ~/postiz/compose.yml up -d
 
-EXTERNAL_IP="http://$(hostname -I | cut -f1 -d' ')"
-echo "🎉 Postiz is now running at: $EXTERNAL_IP:5000"
-echo "🌐 Use Cloudflare Tunnel to map to your domain (e.g., https://postiz.shinewanna.com)"
+echo "🎉 Postiz should now be running at: https://postiz.shinewanna.com"
