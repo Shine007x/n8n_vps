@@ -12,8 +12,6 @@ echo "✅ Volumes are ready!"
 echo "📄 Writing docker-compose.yml..."
 
 cat > docker-compose.yml <<'EOF'
-version: "3.9"
-
 services:
   postiz:
     image: ghcr.io/gitroomhq/postiz-app:latest
