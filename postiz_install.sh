@@ -98,4 +98,6 @@ echo "✅ compose.yml created inside ~/postiz"
 echo "🚀 Starting Postiz services..."
 docker compose -f ~/postiz/compose.yml up -d
 
-echo "🎉 Postiz should now be running at: https://postiz.shinewanna.com"
+EXTERNAL_IP="http://$(hostname -I | cut -f1 -d' ')"
+echo "🎉 RSS-Bridge is now running at: $EXTERNAL_IP:2000"
+echo "🌐 Use Cloudflare Tunnel to map to your domain (e.g., https://rssbridge.shinewanna.com)"
