@@ -3,7 +3,7 @@
 echo "🚀 Starting openai-edge-tts Docker installation..."
 
 # Set your API key here (change this before running)
-API_KEY="my_secret_api_key"
+API_KEY="kokoshine007"
 
 # Prepare directory
 cd ~
