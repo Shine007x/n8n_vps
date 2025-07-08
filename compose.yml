@@ -9,6 +9,8 @@ services:
       - WEBHOOK_URL=${EXTERNAL_IP}
       - N8N_DEFAULT_BINARY_DATA_MODE=filesystem
       - N8N_HIDE_FORM_MAIN_HEADER=true
+      - TZ=Asia/Yangon
+      - GENERIC_TIMEZONE=Asia/Yangon
     ports:
       - "80:5678"
     volumes:
