@@ -11,7 +11,7 @@ echo "✅ Docker installation completed!"
 
 echo "📂 Creating n8n data volumes..."
 cd ~
-mkdir -p n8n/n8n_data n8n/n8n_temp
+mkdir -p n8n/n8n_data n8n/n8n_temp n8n/n8n_scripts
 sudo chown -R 1000:1000 n8n
 sudo chmod -R 755 n8n
 echo "✅ n8n data volume and n8n_temp directory are ready!"
