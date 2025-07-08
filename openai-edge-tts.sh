@@ -28,4 +28,5 @@ sudo docker compose up -d
 
 EXTERNAL_IP="http://$(hostname -I | cut -f1 -d' ')"
 echo "🎉 openai-edge-tts is now running at: $EXTERNAL_IP:5050"
+echo "🌐 Use Cloudflare Tunnel to map to your domain (e.g., https://edge-tts.shinewanna.com)"
 echo "🌐 Send requests to /v1/audio/speech endpoint on this address."
