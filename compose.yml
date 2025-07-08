@@ -8,7 +8,6 @@ services:
       - N8N_EDITOR_BASE_URL=${EXTERNAL_IP}
       - WEBHOOK_URL=${EXTERNAL_IP}
       - N8N_DEFAULT_BINARY_DATA_MODE=filesystem
-      - N8N_HIDE_FORM_MAIN_HEADER=true
       - TZ=Asia/Yangon
       - GENERIC_TIMEZONE=Asia/Yangon
     ports:
