@@ -95,4 +95,4 @@ docker compose -f ~/postiz/compose.yml up -d
 
 EXTERNAL_IP="http://$(hostname -I | cut -f1 -d' ')"
 echo "🎉 RSS-Bridge is now running at: $EXTERNAL_IP:5000"
-echo "🌐 Use Cloudflare Tunnel to map to your domain (e.g., https://postiz.shinewanna.com)"
+echo "🌐 Use Cloudflare Tunnel to map to your domain (e.g., https://postiz.yourdomain.com)"
