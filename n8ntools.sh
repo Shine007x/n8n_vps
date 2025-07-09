@@ -5,7 +5,7 @@ set -e
 CONTAINER_NAME="n8n_container"
 
 # Run all installation steps inside the container
-docker exec -i -u root "$CONTAINER_NAME" bash -c "
+docker exec -i -u root "$CONTAINER_NAME" sh -c "
   # Update package list
   apt-get update
 
