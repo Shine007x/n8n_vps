@@ -7,17 +7,17 @@ CONTAINER_NAME="n8n_container"
 # Update package lists
 docker exec -i -u root "$CONTAINER_NAME" apt-get update
 
-# Install Python3, pip, ffmpeg, yt-dlp, curl, git, and build tools
-docker exec -i -u root "$CONTAINER_NAME" apt-get install -y python3 python3-pip ffmpeg yt-dlp curl git build-essential
+# Install ffmpeg and dependencies
+docker exec -i -u root "$CONTAINER_NAME" apt-get install -y python3 python3-pip build-essential ffmpeg curl
 
-# Upgrade pip to latest version
+# Install yt-dlp
+docker exec -i -u root "$CONTAINER_NAME" apt-get install -y yt-dlp
+
+# Upgrade pip
 docker exec -i -u root "$CONTAINER_NAME" pip3 install --upgrade pip
 
-# Install PyTorch (torch, torchvision, torchaudio) required for Whisper
-docker exec -i -u root "$CONTAINER_NAME" pip3 install --break-system-packages torch torchvision torchaudio
-
-# Install Whisper and Telethon using pip (with break-system-packages)
-docker exec -i -u root "$CONTAINER_NAME" pip3 install --break-system-packages openai-whisper telethon
+# Install Telethon and Whisper using pip (with break-system-packages)
+docker exec -i -u root "$CONTAINER_NAME" pip3 install --break-system-packages telethon openai-whisper torch torchvision torchaudio
 
 # Done
 echo "🎉 Tools installation completed!"
