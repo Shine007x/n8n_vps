@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "🟢 Updating n8n image..."
+sudo apt update
 sudo -E docker pull n8nio/n8n
 echo "✅ Updated."
 
