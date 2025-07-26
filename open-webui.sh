@@ -33,5 +33,5 @@ docker compose up -d
 IP="http://$(hostname -I | cut -d' ' -f1)"
 echo ""
 echo "✅ Open WebUI is now running!"
-echo "🌐 Access it at: $IP:3000"
+echo "🌐 Access it at: $IP:3010"
 echo "🌐 Use Cloudflare Tunnel to map to your domain (e.g., https://swntts.yourdomain.com)"
