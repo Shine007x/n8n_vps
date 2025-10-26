@@ -10,6 +10,9 @@ docker exec -i -u root "$CONTAINER_NAME" apk add --update python3 py3-pip gcc py
 # Install yt-dlp
 docker exec -i -u root "$CONTAINER_NAME" apk add yt-dlp
 
+# Install cuffi
+docker exec -it -u root n8n_local pip install "yt-dlp[default,curl-cffi]" --break-system-packages
+
 # Install Telethon (with break-system-packages)
 docker exec -i -u root "$CONTAINER_NAME" pip install --break-system-packages telethon
 
