@@ -27,6 +27,9 @@ echo "🔴🔴🔴 Please enter your Cloudflare Tunnel Token and Domain:"
 read -p "Enter Cloudflare Tunnel Token: " token
 read -p "Enter Cloudflare Tunnel Domain (without https://): " domain
 
+# ✅ Extract token if full command is pasted
+token=$(echo "$token" | grep -oP '(?<=--token )\S+' || echo "$token")
+
 # Install Cloudflare Tunnel as a service using the entered token
 sudo cloudflared service install "$token"
 echo "✅ Cloudflare Tunnel service installed and running."
