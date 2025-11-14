@@ -2,7 +2,7 @@
 set -e
 
 # Variables
-CONTAINER_NAME="n8n-xsooggoo8sgo8oko88c8kk4c"
+CONTAINER_NAME="n8n-hk8gcc0g8c4koskk4o8gc48g"
 
 # Install ffmpeg
 docker exec -i -u root "$CONTAINER_NAME" apk add --update python3 py3-pip gcc python3-dev musl-dev curl ffmpeg
